@@ -1,20 +1,48 @@
-:root {
-  --primary-green: #2e7d32;
-  --light-green: #e8f5e9;
-  --dark-green: #1b5e20;
+/* Untuk desktop */
+@media (min-width: 769px) {
+  body {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+  }
 }
 
-body {
-  background-color: var(--light-green);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+/* Untuk mobile */
+@media (max-width: 768px) {
+  body {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .card {
+    margin: 10px;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  .table-responsive {
+    font-size: 0.9rem;
+  }
+
+  /* Tombol download di mobile */
+  .d-flex.gap-2 {
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    margin-bottom: 5px;
+  }
 }
 
+/* Style untuk card */
 .card {
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: none;
 }
 
+/* Button styles */
 .btn-primary {
   background-color: var(--primary-green);
   border-color: var(--primary-green);
@@ -25,21 +53,7 @@ body {
   border-color: var(--dark-green);
 }
 
-.btn-outline-primary {
-  color: var(--primary-green);
-  border-color: var(--primary-green);
-}
-
-.btn-outline-primary:hover {
-  background-color: var(--primary-green);
-  border-color: var(--primary-green);
-}
-
-.navbar {
-  background-color: white !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+/* Table styles */
 .table {
   background-color: white;
   border-radius: 10px;
@@ -51,26 +65,52 @@ body {
   color: white;
 }
 
-.modal-content {
-  border-radius: 15px;
-}
-
+/* Form controls */
 .form-control:focus,
 .form-select:focus {
   border-color: var(--primary-green);
   box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
 }
 
-/* Sidebar responsive */
+/* Animasi untuk mobile menu */
+.slide-enter {
+  transform: translateX(-100%);
+}
+
+.slide-enter-active {
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+.slide-exit {
+  transform: translateX(0);
+}
+
+.slide-exit-active {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+/* Responsive tables */
 @media (max-width: 768px) {
-  .sidebar {
-    width: 100% !important;
-    height: auto !important;
-    position: relative !important;
+  .table {
+    font-size: 0.8rem;
   }
 
-  div[style*="marginLeft: '280px'"] {
-    margin-left: 0 !important;
-    width: 100% !important;
+  .table td,
+  .table th {
+    padding: 0.5rem;
+  }
+
+  /* Stack buttons on mobile */
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .btn-group .btn {
+    width: 100%;
+    margin: 2px 0;
   }
 }
