@@ -56,8 +56,7 @@ function KasIndex() {
 
       <div
         style={{
-          marginLeft: "280px",
-          width: "calc(100% - 280px)",
+          width: "100%",
           minHeight: "100vh",
           backgroundColor: "#f5f5f5",
           padding: "20px",
@@ -65,7 +64,7 @@ function KasIndex() {
       >
         <Container fluid>
           {/* Header */}
-          <div className="mb-4">
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center align-items-md-center text-center text-md-start mb-4">
             <h3 style={{ color: "#2e7d32", fontWeight: "bold" }}>
               Manajemen Kas Kampung
             </h3>

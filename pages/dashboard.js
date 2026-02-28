@@ -90,8 +90,7 @@ function Dashboard() {
 
       <div
         style={{
-          marginLeft: "280px",
-          width: "calc(100% - 280px)",
+          width: "100%",
           minHeight: "100vh",
           backgroundColor: "#f5f5f5",
           padding: "20px",
@@ -100,7 +99,12 @@ function Dashboard() {
         <Container fluid>
           {/* Header */}
           <div className="mb-4">
-            <h3 style={{ color: "#2e7d32", fontWeight: "bold" }}>
+            <h3
+              style={{
+                color: "#2e7d32",
+                fontWeight: "bold",
+              }}
+            >
               Dashboard Kas
             </h3>
             <p className="text-muted">
@@ -116,7 +120,7 @@ function Dashboard() {
 
           {/* Statistik Cards */}
           <Row className="mb-4">
-            <Col md={4}>
+            <Col md={4} className="p-1">
               <Card className="border-0 shadow-sm h-100">
                 <Card.Body>
                   <div className="d-flex align-items-center">
@@ -133,7 +137,7 @@ function Dashboard() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col md={4}>
+            <Col md={4} className="p-1">
               <Card className="border-0 shadow-sm h-100">
                 <Card.Body>
                   <div className="d-flex align-items-center">
@@ -150,7 +154,7 @@ function Dashboard() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col md={4}>
+            <Col md={4} className="p-1">
               <Card className="border-0 shadow-sm h-100">
                 <Card.Body>
                   <div className="d-flex align-items-center">

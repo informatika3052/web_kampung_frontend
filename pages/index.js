@@ -1,12 +1,14 @@
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import Link from "next/link";
+import Image from "next/image";
 import { useAuth } from "../context/AuthContextt";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 export default function Home() {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const [imgSrc, setImgSrc] = useState("/images/illustration.svg");
 
   useEffect(() => {
     // Jika sudah login, redirect ke dashboard
@@ -83,18 +85,23 @@ export default function Home() {
               </Link>
             </div>
           </Col>
-          <Col lg={6}>
-            <img
-              src="/images/illustration.svg"
-              alt="Ilustrasi Kas Kampung"
-              className="img-fluid"
-              style={{ maxHeight: "400px" }}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src =
-                  "https://via.placeholder.com/600x400/2e7d32/ffffff?text=Kas+Kampung";
+          <Col lg={6} className="d-flex justify-content-center">
+            {/* <div
+              style={{
+                position: "relative",
+                width: "100%",
+                maxWidth: "500px",
+                height: "400px",
               }}
-            />
+            >
+              <Image
+                src="/images/illustration.svg"
+                alt="Ilustrasi Kas Kampung"
+                fill
+                priority
+                style={{ objectFit: "contain" }}
+              />
+            </div> */}
           </Col>
         </Row>
       </Container>

@@ -91,8 +91,9 @@ function EditPemasukan() {
         <Sidebar activeMenu="pemasukan" />
         <div
           style={{
-            marginLeft: "280px",
-            width: "calc(100% - 280px)",
+            width: "100%",
+            minHeight: "100vh",
+            backgroundColor: "#f5f5f5",
             padding: "20px",
           }}
         >
@@ -121,7 +122,7 @@ function EditPemasukan() {
       >
         <Container fluid>
           {/* Header */}
-          <div className="d-flex align-items-center mb-4">
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center align-items-md-center text-center text-md-start mb-4">
             <Button
               variant="link"
               className="text-success p-0 me-3"

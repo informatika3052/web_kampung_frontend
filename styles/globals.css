@@ -1,10 +1,10 @@
 /* Untuk desktop */
-@media (min-width: 769px) {
+/* @media (min-width: 769px) {
   body {
     margin-left: 280px;
     width: calc(100% - 280px);
   }
-}
+} */
 
 /* Untuk mobile */
 @media (max-width: 768px) {
@@ -19,6 +19,7 @@
 
   h3 {
     font-size: 1.5rem;
+    text-align: center;
   }
 
   .table-responsive {

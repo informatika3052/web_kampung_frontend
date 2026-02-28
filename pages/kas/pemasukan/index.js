@@ -145,8 +145,7 @@ function PemasukanIndex() {
 
       <div
         style={{
-          marginLeft: "280px",
-          width: "calc(100% - 280px)",
+          width: "100%",
           minHeight: "100vh",
           backgroundColor: "#f5f5f5",
           padding: "20px",
@@ -154,7 +153,7 @@ function PemasukanIndex() {
       >
         <Container fluid>
           {/* Header */}
-          <div className="d-flex justify-content-between align-items-center mb-4">
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center align-items-md-center text-center text-md-start mb-4">
             <div>
               <h3 style={{ color: "#2e7d32", fontWeight: "bold" }}>
                 💰 Pemasukan Kas
@@ -253,14 +252,23 @@ function PemasukanIndex() {
           {/* Summary Card */}
           <Card className="border-0 shadow-sm mb-4 bg-success text-white">
             <Card.Body>
-              <Row>
-                <Col md={6}>
-                  <h5>Total Pemasukan</h5>
-                  <h2>{formatRupiah(totalPemasukan)}</h2>
+              <Row className="text-center text-md-start">
+                <Col xs={12} md={6} className="mb-4 mb-md-0">
+                  <div>
+                    <h5 className="fs-6 fs-md-6 text-white-50">
+                      Total Pemasukan
+                    </h5>
+                    <h3 className="fw-bold">{formatRupiah(totalPemasukan)}</h3>
+                  </div>
                 </Col>
-                <Col md={6}>
-                  <h5>Jumlah Transaksi</h5>
-                  <h2>{transactions.length} Transaksi</h2>
+
+                <Col xs={12} md={6}>
+                  <div>
+                    <h5 className="fs-6 fs-md-5 text-white-50">
+                      Jumlah Transaksi
+                    </h5>
+                    <h3 className="fw-bold">{transactions.length} Transaksi</h3>
+                  </div>
                 </Col>
               </Row>
             </Card.Body>
