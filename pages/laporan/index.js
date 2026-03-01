@@ -347,13 +347,13 @@ function LaporanIndex() {
                     </Form.Select>
                   </Form.Group>
                 </Col>
-
-                <Col md={4} className="d-flex align-items-end">
-                  <div className="d-flex gap-2 mb-3">
+                <Col xs={12} md={4} className="d-flex align-items-md-end">
+                  <div className="d-flex flex-column flex-md-row gap-2 mb-3 w-100">
                     <Button
                       variant="success"
                       onClick={handleDownloadPDF}
                       disabled={downloadLoading.pdf}
+                      className="w-100 w-md-auto"
                     >
                       {downloadLoading.pdf ? (
                         "Loading..."
@@ -363,10 +363,12 @@ function LaporanIndex() {
                         </>
                       )}
                     </Button>
+
                     <Button
-                      variant="primary"
+                      variant="warning"
                       onClick={handleDownloadExcel}
                       disabled={downloadLoading.excel}
+                      className="w-100 w-md-auto"
                     >
                       {downloadLoading.excel ? (
                         "Loading..."
@@ -376,7 +378,12 @@ function LaporanIndex() {
                         </>
                       )}
                     </Button>
-                    <Button variant="secondary" onClick={handlePrint}>
+
+                    <Button
+                      variant="secondary"
+                      onClick={handlePrint}
+                      className="w-100 w-md-auto"
+                    >
                       <Printer className="me-2" /> Print
                     </Button>
                   </div>

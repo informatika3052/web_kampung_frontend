@@ -12,8 +12,9 @@ import {
   CalendarMonth,
   BoxArrowRight,
   Wallet2,
-  List, // Icon untuk hamburger menu
-  X, // Icon untuk close
+  List,
+  X,
+  Megaphone,
 } from "react-bootstrap-icons";
 import { useState, useEffect } from "react";
 
@@ -28,9 +29,9 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth <= 768);
       if (window.innerWidth > 768) {
-        setSidebarOpen(true); // Desktop: sidebar selalu terbuka
+        setSidebarOpen(true);
       } else {
-        setSidebarOpen(false); // Mobile: sidebar tertutup default
+        setSidebarOpen(false);
       }
     };
 
@@ -46,6 +47,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
       icon: HouseDoor,
       roles: ["admin", "warga"],
       path: "/dashboard",
+      tooltip: "Lihat ringkasan keuangan",
     },
     {
       key: "pemasukan",
@@ -53,6 +55,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
       icon: Cash,
       roles: ["admin", "warga"],
       path: "/kas/pemasukan",
+      tooltip: "Kelola data pemasukan",
     },
     {
       key: "pengeluaran",
@@ -60,6 +63,16 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
       icon: Wallet2,
       roles: ["admin", "warga"],
       path: "/kas/pengeluaran",
+      tooltip: "Kelola data pengeluaran",
+    },
+    // ===== MENU ANNOUNCEMENTS (PENGUMUMAN) =====
+    {
+      key: "announcements",
+      label: "Pengumuman",
+      icon: Megaphone,
+      roles: ["admin", "warga"],
+      path: "/announcements",
+      tooltip: "Lihat dan kelola pengumuman",
     },
     {
       key: "reports",
@@ -67,6 +80,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
       icon: FileEarmarkPdf,
       roles: ["admin", "warga"],
       path: "/laporan",
+      tooltip: "Download laporan PDF & Excel",
     },
     {
       key: "statistics",
@@ -74,6 +88,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
       icon: GraphUp,
       roles: ["admin", "warga"],
       path: "/statistik",
+      tooltip: "Lihat grafik dan analisis",
     },
     {
       key: "calendar",
@@ -81,6 +96,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
       icon: CalendarMonth,
       roles: ["admin", "warga"],
       path: "/kalender",
+      tooltip: "Lihat transaksi per tanggal",
     },
     {
       key: "import",
@@ -88,6 +104,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
       icon: Upload,
       roles: ["admin"],
       path: "/import",
+      tooltip: "Import data dari file Excel",
     },
     {
       key: "users",
@@ -95,6 +112,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
       icon: People,
       roles: ["admin"],
       path: "/users",
+      tooltip: "Tambah/edit pengguna",
     },
     {
       key: "settings",
@@ -102,6 +120,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
       icon: Gear,
       roles: ["admin"],
       path: "/settings",
+      tooltip: "Konfigurasi aplikasi",
     },
   ];
 
@@ -116,7 +135,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
     }
     router.push(item.path);
     if (isMobile) {
-      setSidebarOpen(false); // Tutup sidebar setelah klik di mobile
+      setSidebarOpen(false);
     }
   };
 
@@ -169,6 +188,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
             justifyContent: "center",
             boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
           }}
+          title="Buka menu"
         >
           <List size={24} />
         </Button>
@@ -208,6 +228,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
               color: "white",
               zIndex: 1002,
             }}
+            title="Tutup menu"
           >
             <X size={24} />
           </Button>
@@ -220,6 +241,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
             <div
               className="p-4 text-center"
               style={{ borderBottom: "1px solid rgba(255,255,255,0.2)" }}
+              title="Halaman utama"
             >
               <h3
                 style={{
@@ -237,52 +259,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
               </p>
             </div>
 
-            {/* User Info */}
-            {user && (
-              <div
-                className="p-4 text-center"
-                style={{ borderBottom: "1px solid rgba(255,255,255,0.2)" }}
-              >
-                <div
-                  style={{
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "50%",
-                    backgroundColor: "#a5d6a7",
-                    margin: "0 auto 15px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "40px",
-                    color: "#1b5e20",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {user.name?.charAt(0).toUpperCase()}
-                </div>
-                <h5
-                  style={{
-                    color: "white",
-                    marginBottom: "5px",
-                    wordBreak: "break-word",
-                  }}
-                >
-                  {user.name}
-                </h5>
-                <p
-                  style={{
-                    color: "#a5d6a7",
-                    fontSize: "13px",
-                    marginBottom: 0,
-                    wordBreak: "break-word",
-                  }}
-                >
-                  {user.email}
-                </p>
-              </div>
-            )}
-
-            {/* Menu Items */}
+            {/* Menu Items - Tambahkan atribut title */}
             <div className="flex-grow-1 overflow-auto py-3 px-3">
               {filteredMenu.map((item) => {
                 const Icon = item.icon;
@@ -314,6 +291,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
                         e.currentTarget.style.backgroundColor = "transparent";
                       }
                     }}
+                    title={item.tooltip}
                   >
                     <Icon size={20} className="me-3 flex-shrink-0" />
                     <span
@@ -329,7 +307,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
               })}
             </div>
 
-            {/* Logout Button */}
+            {/* Logout Button - Tambahkan tooltip */}
             <div
               className="p-3"
               style={{ borderTop: "1px solid rgba(255,255,255,0.2)" }}
@@ -350,6 +328,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.backgroundColor = "transparent")
                 }
+                title="Keluar dari aplikasi"
               >
                 <BoxArrowRight size={20} className="me-3 flex-shrink-0" />
                 <span style={{ fontSize: "16px" }}>Logout</span>
