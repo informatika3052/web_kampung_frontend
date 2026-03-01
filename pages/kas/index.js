@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContextt";

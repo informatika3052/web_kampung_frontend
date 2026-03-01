@@ -14,6 +14,7 @@ import {
   Wallet2,
   List,
   X,
+  Megaphone,
 } from "react-bootstrap-icons";
 import { useState, useEffect } from "react";
 
@@ -46,7 +47,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
       icon: HouseDoor,
       roles: ["admin", "warga"],
       path: "/dashboard",
-      tooltip: "Lihat ringkasan keuangan", // Tambahkan tooltip
+      tooltip: "Lihat ringkasan keuangan",
     },
     {
       key: "pemasukan",
@@ -63,6 +64,15 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
       roles: ["admin", "warga"],
       path: "/kas/pengeluaran",
       tooltip: "Kelola data pengeluaran",
+    },
+    // ===== MENU ANNOUNCEMENTS (PENGUMUMAN) =====
+    {
+      key: "announcements",
+      label: "Pengumuman",
+      icon: Megaphone,
+      roles: ["admin", "warga"],
+      path: "/announcements",
+      tooltip: "Lihat dan kelola pengumuman",
     },
     {
       key: "reports",
@@ -178,7 +188,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
             justifyContent: "center",
             boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
           }}
-          title="Buka menu" // Tooltip untuk tombol hamburger
+          title="Buka menu"
         >
           <List size={24} />
         </Button>
@@ -218,7 +228,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
               color: "white",
               zIndex: 1002,
             }}
-            title="Tutup menu" // Tooltip untuk tombol close
+            title="Tutup menu"
           >
             <X size={24} />
           </Button>
@@ -231,7 +241,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
             <div
               className="p-4 text-center"
               style={{ borderBottom: "1px solid rgba(255,255,255,0.2)" }}
-              title="Halaman utama" // Tooltip untuk logo
+              title="Halaman utama"
             >
               <h3
                 style={{
@@ -248,52 +258,6 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
                 {user?.role === "admin" ? "Administrator" : "Warga"}
               </p>
             </div>
-
-            {/* User Info */}
-            {/* {user && (
-              <div
-                className="p-4 text-center"
-                style={{ borderBottom: "1px solid rgba(255,255,255,0.2)" }}
-                title={`${user.name} - ${user.email}`} 
-              >
-                <div
-                  style={{
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "50%",
-                    backgroundColor: "#a5d6a7",
-                    margin: "0 auto 15px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "40px",
-                    color: "#1b5e20",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {user.name?.charAt(0).toUpperCase()}
-                </div>
-                <h5
-                  style={{
-                    color: "white",
-                    marginBottom: "5px",
-                    wordBreak: "break-word",
-                  }}
-                >
-                  {user.name}
-                </h5>
-                <p
-                  style={{
-                    color: "#a5d6a7",
-                    fontSize: "13px",
-                    marginBottom: 0,
-                    wordBreak: "break-word",
-                  }}
-                >
-                  {user.email}
-                </p>
-              </div>
-            )} */}
 
             {/* Menu Items - Tambahkan atribut title */}
             <div className="flex-grow-1 overflow-auto py-3 px-3">
@@ -327,7 +291,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
                         e.currentTarget.style.backgroundColor = "transparent";
                       }
                     }}
-                    title={item.tooltip} // <-- INI YANG MEMBUAT TOOLTIP MUNCUL
+                    title={item.tooltip}
                   >
                     <Icon size={20} className="me-3 flex-shrink-0" />
                     <span
@@ -364,7 +328,7 @@ export default function Sidebar({ activeMenu, setActiveMenu }) {
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.backgroundColor = "transparent")
                 }
-                title="Keluar dari aplikasi" // Tooltip untuk logout
+                title="Keluar dari aplikasi"
               >
                 <BoxArrowRight size={20} className="me-3 flex-shrink-0" />
                 <span style={{ fontSize: "16px" }}>Logout</span>
