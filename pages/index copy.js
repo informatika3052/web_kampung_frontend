@@ -1,18 +1,10 @@
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import Link from "next/link";
-import Image from "next/image";
 import { useAuth } from "../context/AuthContextt";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import {
-  Megaphone,
-  Calendar,
-  GeoAlt,
-  Clock,
-  Envelope,
-  Telephone,
-} from "react-bootstrap-icons";
+import { Megaphone, Calendar, GeoAlt, Clock } from "react-bootstrap-icons";
 
 export default function Home() {
   const { user, loading } = useAuth();
@@ -95,15 +87,6 @@ export default function Home() {
       label: labels[category] || category,
     };
   };
-
-  const gambarGaleri = [
-    { id: 1, file: "bg1.png", alt: "Kegiatan gotong royong" },
-    { id: 2, file: "bg2.png", alt: "Pembangunan jalan" },
-    { id: 3, file: "bg3.png", alt: "Rapat warga" },
-    { id: 4, file: "bg4.png", alt: "Poskamling" },
-    { id: 5, file: "bg5.png", alt: "Kesenian daerah" },
-    { id: 6, file: "bg6.png", alt: "Panen raya" },
-  ];
 
   // Jangan tampilkan konten jika sedang loading atau sudah login
   if (loading || user) {
@@ -352,73 +335,11 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer
-        style={{ backgroundColor: "#1b5e20", color: "white" }}
-        className="pt-5 pb-3"
-      >
-        <Container>
-          <Row>
-            {/* Kolom 1: Profil Kampung */}
-            <Col md={4} className="mb-4 text-center">
-              <h5 className="fw-bold mb-3 ">KEDUNG ANYAR 1</h5>
-              <p className="small mb-2">
-                Website Resmi Kampung Kedung Anyar 1 - Transparansi,
-                Akuntabilitas, dan Partisipasi Warga dalam Pengelolaan Keuangan
-                Kampung.
-              </p>
-            </Col>
-
-            {/* Kolom 2: Hubungi Kami */}
-            <Col md={4} className="mb-4 text-center">
-              <h5 className="fw-bold mb-3">HUBUNGI KAMI</h5>
-              <p className="small mb-2">
-                <GeoAlt className="me-2" /> Jln. Kedung Anyar 1, Kelurahan
-                Sawahan, Kecamatan Sawahan, Kota Surabaya, Jawa Timur,
-                Indonesia.
-              </p>
-              <p className="small mb-1">
-                <Envelope className="me-2" /> email@kampungkedunganyar1.com
-              </p>
-              <p className="small mb-0">
-                <Telephone className="me-2" /> +62 123 4567 890
-              </p>
-            </Col>
-
-            {/* Kolom 3: Album Galeri */}
-            <Col md={4} className="mb-4 text-center">
-              <h5 className="fw-bold mb-3">ALBUM GALERI</h5>
-              <Row className="g-2">
-                {gambarGaleri.map((item) => (
-                  <Col xs={4} key={item.id}>
-                    <Image
-                      src={`/galeri/${item.file}`}
-                      alt={item.alt}
-                      width={60}
-                      height={60}
-                      className="img-fluid rounded"
-                      style={{
-                        objectFit: "cover",
-                        width: "100%",
-                        height: "60px",
-                      }}
-                    />
-                  </Col>
-                ))}
-              </Row>
-              {/* <Link href="/galeri" className="text-white small d-block mt-2">
-                Lihat Semua →
-              </Link> */}
-            </Col>
-          </Row>
-
-          <hr className="opacity-25" />
-
-          <Row>
-            <Col className="text-center small opacity-75">
-              © {new Date().getFullYear()} - Kedung Anyar 1, All rights
-              reserved.
-            </Col>
-          </Row>
+      <footer className="bg-dark text-white py-4">
+        <Container className="text-center">
+          <p className="mb-0">
+            © {new Date().getFullYear()} Aplikasi Website Pengelolaan Kampung.
+          </p>
         </Container>
       </footer>
 

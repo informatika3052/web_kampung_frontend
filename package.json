@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mui/x-date-pickers": "^8.27.2",
+    "animejs": "^4.3.6",
     "axios": "^1.13.6",
     "bootstrap": "^5.3.8",
     "chart.js": "^4.5.1",

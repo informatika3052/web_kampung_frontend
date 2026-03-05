@@ -14,13 +14,14 @@ import { useAuth } from "../../context/AuthContextt";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import Sidebar from "../../components/Sidebar";
 import { useRouter } from "next/router";
-import { Plus, Pencil, Trash2, Calendar, GeoAlt } from "react-bootstrap-icons"; // Ganti MapPin dengan GeoAlt
+import { Plus, Pencil, Trash2, GeoAlt } from "react-bootstrap-icons";
 
 function SemuaPengumuman() {
   const { user } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [announcements, setAnnouncements] = useState([]);
+  const [totalPengumuman, setTotalPengumuman] = useState(0);
   const [filter, setFilter] = useState({
     bulan: new Date().getMonth() + 1,
     tahun: new Date().getFullYear(),
@@ -33,18 +34,14 @@ function SemuaPengumuman() {
   const fetchAnnouncements = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-
-      let url = `http://localhost:5000/api/announcements?bulan=${filter.bulan}&tahun=${filter.tahun}`;
+      let url = `/announcements?bulan=${filter.bulan}&tahun=${filter.tahun}`;
       if (filter.category) url += `&category=${filter.category}`;
       if (filter.search) url += `&search=${filter.search}`;
 
-      const res = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get(url);
+      console.log("Fetched announcements:", res);
       setAnnouncements(res.data);
+      setTotalPengumuman(res.data.length);
     } catch (err) {
       console.error("Error fetching announcements:", err);
     } finally {
@@ -55,15 +52,7 @@ function SemuaPengumuman() {
   // Fetch tahun yang tersedia
   const fetchAvailableYears = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get(
-        "http://localhost:5000/api/announcements/years",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+      const res = await axios.get("/announcements/years");
       setAvailableYears(res.data);
     } catch (err) {
       console.error("Error fetching years:", err);
@@ -120,7 +109,7 @@ function SemuaPengumuman() {
   };
 
   const handleTambah = () => {
-    router.push("/announcements/buat");
+    router.push("/announcements/tambah");
   };
 
   const handleEdit = (id) => {
@@ -130,17 +119,16 @@ function SemuaPengumuman() {
   const handleDelete = async (id) => {
     if (confirm("Apakah Anda yakin ingin menghapus pengumuman ini?")) {
       try {
-        const token = localStorage.getItem("token");
-        await axios.delete(`http://localhost:5000/api/announcements/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        await axios.delete(`/announcements/${id}`);
         fetchAnnouncements();
       } catch (err) {
         alert("Gagal menghapus pengumuman");
       }
     }
+  };
+
+  const handleRowClick = (id) => {
+    router.push(`/announcements/${id}`);
   };
 
   return (
@@ -156,7 +144,7 @@ function SemuaPengumuman() {
         }}
       >
         <Container fluid>
-          {/* Header */}
+          {/* Header - Sama seperti pemasukan */}
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-center align-items-md-center text-center text-md-start mb-4">
             <div>
               <h3 style={{ color: "#2e7d32", fontWeight: "bold" }}>
@@ -173,7 +161,7 @@ function SemuaPengumuman() {
             )}
           </div>
 
-          {/* Filter Section */}
+          {/* Filter Section - Sama seperti pemasukan */}
           <Card className="border-0 shadow-sm mb-4">
             <Card.Body>
               <h5 className="mb-3">Filter Pengumuman</h5>
@@ -259,27 +247,25 @@ function SemuaPengumuman() {
             </Card.Body>
           </Card>
 
-          {/* Summary Card */}
+          {/* Summary Card - Sama seperti pemasukan */}
           <Card className="border-0 shadow-sm mb-4 bg-success text-white">
             <Card.Body>
               <Row className="text-center text-md-start">
                 <Col xs={12} md={6} className="mb-4 mb-md-0">
                   <div>
-                    <h5 className="fs-6 fs-md-6 text-white-50">
-                      Total Pengumuman
-                    </h5>
-                    <h3 className="fw-bold">
-                      {announcements.length} Pengumuman
-                    </h3>
+                    <h5 className="fs-6 text-white-50">Total Pengumuman</h5>
+                    <h3 className="fw-bold">{totalPengumuman} Pengumuman</h3>
                   </div>
                 </Col>
                 <Col xs={12} md={6}>
                   <div>
-                    <h5 className="fs-6 fs-md-5 text-white-50">Periode</h5>
+                    <h5 className="fs-6 text-white-50">Periode</h5>
                     <h3 className="fw-bold">
                       {new Date(2000, filter.bulan - 1, 1).toLocaleString(
                         "id-ID",
-                        { month: "long" },
+                        {
+                          month: "long",
+                        },
                       )}{" "}
                       {filter.tahun}
                     </h3>
@@ -289,7 +275,7 @@ function SemuaPengumuman() {
             </Card.Body>
           </Card>
 
-          {/* Table */}
+          {/* Table - Dengan fitur klik row */}
           <Card className="border-0 shadow-sm">
             <Card.Body>
               <Table hover responsive>
@@ -332,7 +318,17 @@ function SemuaPengumuman() {
                     announcements.map((item) => {
                       const category = getCategoryBadge(item.category);
                       return (
-                        <tr key={item.id}>
+                        <tr
+                          key={item.id}
+                          onClick={() => handleRowClick(item.id)}
+                          style={{ cursor: "pointer" }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = "#f8f9fa";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = "";
+                          }}
+                        >
                           <td>{formatDate(item.date)}</td>
                           <td className="fw-bold">{item.title}</td>
                           <td>
@@ -341,8 +337,7 @@ function SemuaPengumuman() {
                           <td>
                             {item.location ? (
                               <span>
-                                <GeoAlt size={14} className="me-1 text-muted" />{" "}
-                                {/* Ganti MapPin dengan GeoAlt */}
+                                <GeoAlt size={14} className="me-1 text-muted" />
                                 {item.location}
                               </span>
                             ) : (
@@ -355,8 +350,8 @@ function SemuaPengumuman() {
                               : item.description || "-"}
                           </td>
                           <td>{item.creator?.name || "Unknown"}</td>
-                          {user?.role === "admin" ? (
-                            <td>
+                          {user?.role === "admin" && (
+                            <td onClick={(e) => e.stopPropagation()}>
                               <Button
                                 variant="warning"
                                 size="sm"
@@ -372,10 +367,6 @@ function SemuaPengumuman() {
                               >
                                 <Trash2 size={14} />
                               </Button>
-                            </td>
-                          ) : (
-                            <td>
-                              <Badge bg="secondary">View Only</Badge>
                             </td>
                           )}
                         </tr>
