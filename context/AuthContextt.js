@@ -13,7 +13,8 @@ export const AuthProvider = ({ children }) => {
 
   // Set base URL axios
   // eslint-disable-next-line react-hooks/immutability
-  axios.defaults.baseURL = "http://localhost:5000/api";
+  axios.defaults.baseURL =
+    "https://webkampungbackend-production.up.railway.app/api";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
